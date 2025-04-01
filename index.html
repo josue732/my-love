@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Thania Xiomara</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: black;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        #flor {
+            width: 200px;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: aparecer 2s ease-in-out forwards;
+        }
+        @keyframes aparecer {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        #mensaje {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff1493;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: aparecerMensaje 2s ease-in-out 2s forwards;
+            line-height: 1.5;
+        }
+        #nombre {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            color: #ff69b4;
+        }
+        @keyframes aparecerMensaje {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .mensaje-amor {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+            animation: flotar 6s ease-in-out;
+        }
+        @keyframes flotar {
+            0% { opacity: 0; transform: translateY(0px); }
+            50% { opacity: 1; transform: translateY(-30px); }
+            100% { opacity: 0; transform: translateY(-60px); }
+        }
+        .corazon {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: subir 3s infinite ease-in;
+        }
+        @keyframes subir {
+            0% { opacity: 0; transform: translateY(0px); }
+            50% { opacity: 1; transform: translateY(-50px); }
+            100% { opacity: 0; transform: translateY(-100px); }
+        }
+    </style>
+</head>
+<body>
+    <img id="flor" src="https://cdn.pixabay.com/photo/2017/08/30/07/51/sunflower-2697191_1280.jpg" alt="Flor Amarilla">
+    <div id="mensaje">Te amo mucho,<br> <span id="nombre">Thania Xiomara ❤️</span></div>
+    
+    <script>
+        let mensajes = [
+            "Eres mi felicidad", "Siempre en mi corazón", "Mi amor eterno", "Mi vida es mejor contigo", "Cada día te amo más", 
+            "Eres la razón de mis sonrisas", "Tú y yo para siempre", "Mi alma está unida a la tuya", "Te amo con todo mi ser", 
+            "Eres mi sueño hecho realidad", "Sin ti, no hay sol en mi cielo"
+        ];
+        const colores = ["#ff0000", "#ff7300", "#ffeb00", "#00ff00", "#0099ff", "#9900ff"];
+        
+        function crearMensaje() {
+            if (mensajes.length === 0) return;
+            
+            const index = Math.floor(Math.random() * mensajes.length);
+            const mensajeTexto = mensajes.splice(index, 1)[0];
+            
+            const mensaje = document.createElement("div");
+            mensaje.classList.add("mensaje-amor");
+            mensaje.textContent = mensajeTexto;
+            mensaje.style.color = colores[Math.floor(Math.random() * colores.length)];
+            
+            let x, y;
+            do {
+                x = Math.random() * window.innerWidth * 0.8;
+                y = Math.random() * window.innerHeight * 0.8;
+            } while (y > window.innerHeight * 0.4 && y < window.innerHeight * 0.6);
+            
+            mensaje.style.left = `${x}px`;
+            mensaje.style.top = `${y}px`;
+            mensaje.style.animationDuration = `${4 + Math.random() * 4}s`;
+            
+            document.body.appendChild(mensaje);
+            setTimeout(() => mensaje.remove(), 6000);
+        }
+        
+        function crearCorazon() {
+            for (let i = 0; i < 5; i++) { // Más corazones
+                const corazon = document.createElement("div");
+                corazon.classList.add("corazon");
+                corazon.textContent = "❤️";
+                
+                const x = Math.random() * window.innerWidth;
+                corazon.style.left = `${x}px`;
+                corazon.style.bottom = "0px";
+                corazon.style.animationDuration = `${2 + Math.random() * 3}s`;
+                
+                document.body.appendChild(corazon);
+                setTimeout(() => corazon.remove(), 4000);
+            }
+        }
+        
+        setInterval(crearMensaje, 2000);
+        setInterval(crearCorazon, 500);
+    </script>
+</body>
+</html>
